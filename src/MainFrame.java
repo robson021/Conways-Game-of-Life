@@ -3,13 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main extends JFrame {
+public class MainFrame extends JFrame {
 
     private DrawingPanel drawingPanel;
     private JTextField textFieldX, textFieldY;
     private static JLabel infoLabel;
 
-    public Main() {
+    public MainFrame() {
         super("Game of Life");
         this.setLayout(new BorderLayout());
         drawingPanel = new DrawingPanel();
@@ -82,7 +82,7 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Main mainFrame = new Main();
+                JFrame mainFrame = new MainFrame();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 //mainFrame.setLocationRelativeTo(null);
                 mainFrame.setLocationByPlatform(true);

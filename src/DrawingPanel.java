@@ -55,7 +55,7 @@ public class DrawingPanel extends JPanel {
     public boolean addNewLife(int x, int y) {
         if (x < SIZE && y < SIZE) {
             cells[x][y].setAlive(true);
-            Main.updateInfo("Added new life at: " + x + ", " + y);
+            MainFrame.updateInfo("Added new life at: " + x + ", " + y);
             return true;
         }
         return false;
@@ -72,7 +72,7 @@ public class DrawingPanel extends JPanel {
     public boolean killLife(int x, int y) {
         if (x < SIZE && y < SIZE && cells[x][y].isAlive()) {
             this.cells[x][y].killThisCell();
-            Main.updateInfo("Killed life at: " + x + ", " + y);
+            MainFrame.updateInfo("Killed life at: " + x + ", " + y);
             return true;
         }
         return false;
