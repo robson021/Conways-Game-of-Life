@@ -7,7 +7,7 @@ public class Main extends JFrame {
 
     private DrawingPanel drawingPanel;
     private JTextField textFieldX, textFieldY;
-    private JLabel infoLabel;
+    private static JLabel infoLabel;
 
     public Main() {
         super("Game of Life");
@@ -20,8 +20,11 @@ public class Main extends JFrame {
         startButton.addActionListener(new StartButtonListener());
         JButton addButton = new JButton("Add new life");
         addButton.addActionListener(new AddButtonListener());
+        JButton killButton = new JButton("Kill cell");
+        killButton.addActionListener(new KillCellAction());
 
         southPanel.add(startButton);
+        southPanel.add(killButton);
         southPanel.add(addButton);
         textFieldX = new JTextField(2);
         southPanel.add(new JLabel("x: "));
@@ -47,10 +50,21 @@ public class Main extends JFrame {
             int x = Integer.parseInt(textFieldX.getText());
             int y = Integer.parseInt(textFieldY.getText());
             if (drawingPanel.addNewLife(x, y)) {
-                infoLabel.setText("Added new life at: " + x + ", " + y);
+                //infoLabel.setText("Added new life at: " + x + ", " + y);
+                drawingPanel.getFieldsAt(x, y).setBackground(Color.GREEN);
             } else {
                 infoLabel.setText("Given coordinates are not correct!");
             }
+        }
+    }
+
+    private class KillCellAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (textFieldY.getText().equals("") || textFieldX.getText().equals("")) return;
+            int x = Integer.parseInt(textFieldX.getText());
+            int y = Integer.parseInt(textFieldY.getText());
+            drawingPanel.killLife(x, y);
         }
     }
 
@@ -61,6 +75,10 @@ public class Main extends JFrame {
         }
     }
 
+    public static void updateInfo(String text) {
+        infoLabel.setText(text);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -68,11 +86,13 @@ public class Main extends JFrame {
                 Main mainFrame = new Main();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainFrame.setLocationRelativeTo(null);
-                mainFrame.setResizable(false);
+                //mainFrame.setResizable(false);
                 mainFrame.pack();
                 mainFrame.setVisible(true);
             }
         });
 
     }
+
+
 }
