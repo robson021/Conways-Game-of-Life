@@ -28,7 +28,10 @@ public class CellPane extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 defaultBackground = Color.GREEN;
-                DrawingPanel.getPanel().addNewLife(X, Y);
+                if (alive) {
+                    defaultBackground = Color.black;
+                    DrawingPanel.getPanel().killLife(X, Y);
+                } else DrawingPanel.getPanel().addNewLife(X, Y);
             }
         });
     }
@@ -38,11 +41,11 @@ public class CellPane extends JPanel {
         alive = false;
     }
 
-    @Override
+   /* @Override
     public void setBackground(Color bg) {
         defaultBackground = getBackground();
         super.setBackground(bg);
-    }
+    }*/
 
     @Override
     public Dimension getPreferredSize() {
