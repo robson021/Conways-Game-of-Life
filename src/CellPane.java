@@ -59,5 +59,20 @@ public class CellPane extends JPanel {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+    public void checkNeighbourhood() {
+        System.out.println("Cell " + this.getId() + " is " + this.alive);
+        for (int y, x = X - 1; x < (X + 2); x++) {
+            for (y = Y - 1; y < (Y + 2); y++) {
+                if (x == X && y == Y) continue; // skip self
+                System.out.println("iteration: " + x + ", " + y + " ");
+            }
+        }
+        System.out.println("Finished update of Cell: " + this.getId());
+    }
+
+    public String getId() {
+        return "x: " + X + ", y: " + Y;
+    }
 }
 

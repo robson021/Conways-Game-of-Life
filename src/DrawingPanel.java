@@ -10,6 +10,11 @@ public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
     public static final int SIZE = 20;
     private static final String EMPTY_TEXT = "    ", ALIVE = "X";
+
+    public CellPane[][] getCells() {
+        return cells;
+    }
+
     private CellPane[][] cells = new CellPane[SIZE][SIZE];
 
     public DrawingPanel() {

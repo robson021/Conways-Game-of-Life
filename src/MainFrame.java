@@ -97,11 +97,21 @@ public class MainFrame extends JFrame {
         @Override
         public void run() {
             while (isThreadRunning) {
+                CellPane cellPane;
+                CellPane[][] cellPanes = drawingPanel.getCells();
+                for (int j, i = 0; i < DrawingPanel.SIZE; i++) {
+                    for (j = 0; j < DrawingPanel.SIZE; j++) {
+                        cellPane = cellPanes[i][j];
+                        cellPane.checkNeighbourhood();
+                    }
+                }
+
                 try {
                     Thread.sleep(1_000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                //isThreadRunning = false;
             }
             startButton.setText("Start");
             System.out.println("Thread stopped.");
