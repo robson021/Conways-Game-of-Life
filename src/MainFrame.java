@@ -8,6 +8,9 @@ public class MainFrame extends JFrame {
     private DrawingPanel drawingPanel;
     private JTextField textFieldX, textFieldY;
     private static JLabel infoLabel;
+    private Thread lifeThread = null;
+    private boolean isThreadRunning = false;
+    private JButton startButton;
 
     public MainFrame() {
         super("Game of Life");
@@ -16,7 +19,7 @@ public class MainFrame extends JFrame {
         this.add(drawingPanel, BorderLayout.CENTER);
 
         JPanel southPanel = new JPanel(new FlowLayout());
-        JButton startButton = new JButton("Start");
+        startButton = new JButton("Start");
         startButton.addActionListener(new StartButtonListener());
         JButton addButton = new JButton("Add new life");
         addButton.addActionListener(new AddButtonListener());
@@ -70,12 +73,39 @@ public class MainFrame extends JFrame {
     private class StartButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if (lifeThread == null || !lifeThread.isAlive()) {
+                lifeThread = new Thread(new LifeRunnable());
+                lifeThread.start();
+                startButton.setText("Stop");
+                System.out.println("Thread started.");
+            } else {
+                isThreadRunning = false;
+            }
+            //startButton.repaint();
         }
     }
 
     public static void updateInfo(String text) {
         infoLabel.setText(text);
+    }
+
+    private class LifeRunnable implements Runnable {
+        public LifeRunnable() {
+            isThreadRunning = true;
+        }
+
+        @Override
+        public void run() {
+            while (isThreadRunning) {
+                try {
+                    Thread.sleep(1_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            startButton.setText("Start");
+            System.out.println("Thread stopped.");
+        }
     }
 
     public static void main(String[] args) {
