@@ -10,8 +10,7 @@ public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
     public static final int SIZE = 20;
     private static final String EMPTY_TEXT = "    ", ALIVE = "X";
-    private boolean[][] cells = new boolean[SIZE][SIZE];
-    private CellPane[][] fields = new CellPane[SIZE][SIZE];
+    private CellPane[][] cells = new CellPane[SIZE][SIZE];
 
     public DrawingPanel() {
         setLayout(new GridBagLayout());
@@ -38,7 +37,7 @@ public class DrawingPanel extends JPanel {
                         border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
                     }
                 }
-                fields[row][col] = cellPane;
+                cells[row][col] = cellPane;
                 cellPane.setBorder(border);
                 add(cellPane, gbc);
             }
@@ -49,13 +48,13 @@ public class DrawingPanel extends JPanel {
     public void clearCells() {
         for (int j, i = 0; i < SIZE; i++)
             for (j = 0; j < SIZE; j++)
-                cells[i][j] = false;
+                cells[i][j].killThisCell();
         repaint();
     }
 
     public boolean addNewLife(int x, int y) {
         if (x < SIZE && y < SIZE) {
-            cells[x][y] = true;
+            cells[x][y].setAlive(true);
             Main.updateInfo("Added new life at: " + x + ", " + y);
             return true;
         }
@@ -67,13 +66,12 @@ public class DrawingPanel extends JPanel {
     }
 
     public CellPane getFieldsAt(int x, int y) {
-        return fields[x][y];
+        return cells[x][y];
     }
 
     public boolean killLife(int x, int y) {
-        if (x < SIZE && y < SIZE && cells[x][y] == true) {
-            cells[x][y] = false;
-            this.fields[x][y].killThisCell();
+        if (x < SIZE && y < SIZE && cells[x][y].isAlive()) {
+            this.cells[x][y].killThisCell();
             Main.updateInfo("Killed life at: " + x + " " + y);
             return true;
         }

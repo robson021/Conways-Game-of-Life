@@ -50,7 +50,6 @@ public class Main extends JFrame {
             int x = Integer.parseInt(textFieldX.getText());
             int y = Integer.parseInt(textFieldY.getText());
             if (drawingPanel.addNewLife(x, y)) {
-                //infoLabel.setText("Added new life at: " + x + ", " + y);
                 drawingPanel.getFieldsAt(x, y).setBackground(Color.GREEN);
             } else {
                 infoLabel.setText("Given coordinates are not correct!");
@@ -85,8 +84,9 @@ public class Main extends JFrame {
             public void run() {
                 Main mainFrame = new Main();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainFrame.setLocationRelativeTo(null);
-                //mainFrame.setResizable(false);
+                //mainFrame.setLocationRelativeTo(null);
+                mainFrame.setLocationByPlatform(true);
+                mainFrame.setResizable(false);
                 mainFrame.pack();
                 mainFrame.setVisible(true);
             }

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 public class CellPane extends JPanel {
     private Color defaultBackground;
     private final int X, Y;
+    private boolean alive = false;
 
     public CellPane(int x, int y) {
         X = x;
@@ -34,6 +35,7 @@ public class CellPane extends JPanel {
 
     public void killThisCell() {
         setBackground(Color.black);
+        alive = false;
     }
 
     @Override
@@ -45,6 +47,14 @@ public class CellPane extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(30, 30);
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }
 
