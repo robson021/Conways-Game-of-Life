@@ -102,9 +102,9 @@ public class CellPane extends JPanel {
 
         if (this.alive) {
             if (otherAlive > 3) DrawingPanel.getPanel().killLife(X, Y);
-            else if (otherAlive < 2) this.killThisCell();
+            else if (otherAlive < 2) DrawingPanel.getPanel().killLife(X, Y);
         } else {
-            if (otherAlive == 3) DrawingPanel.getPanel().killLife(X, Y);
+            if (otherAlive == 3) DrawingPanel.getPanel().addNewLife(X, Y);
         }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
