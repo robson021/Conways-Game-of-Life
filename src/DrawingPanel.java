@@ -8,8 +8,7 @@ import java.awt.*;
  */
 public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
-    public static final int SIZE = 20;
-    private static final String EMPTY_TEXT = "    ", ALIVE = "X";
+    public static final int SIZE = 15;
 
     public CellPane[][] getCells() {
         return cells;

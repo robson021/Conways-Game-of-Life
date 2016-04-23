@@ -80,6 +80,7 @@ public class MainFrame extends JFrame {
                 System.out.println("Thread started.");
             } else {
                 isThreadRunning = false;
+                startButton.setEnabled(false);
             }
             //startButton.repaint();
         }
@@ -93,7 +94,6 @@ public class MainFrame extends JFrame {
         public LifeRunnable() {
             isThreadRunning = true;
         }
-
         @Override
         public void run() {
             while (isThreadRunning) {
@@ -103,7 +103,14 @@ public class MainFrame extends JFrame {
                     for (j = 0; j < DrawingPanel.SIZE; j++) {
                         cellPane = cellPanes[i][j];
                         cellPane.checkNeighbourhood();
+                        try {
+                            Thread.sleep(35); // sleep for slower screen update
+                        } catch (InterruptedException e) {
+                            System.out.println("Error - thread sleep try.");
+                        }
                     }
+                    System.out.println("\tAlive cells:");
+                    System.out.println(getAliveCellsCords());
                 }
 
                 try {
@@ -113,9 +120,31 @@ public class MainFrame extends JFrame {
                 }
                 //isThreadRunning = false;
             }
-            startButton.setText("Start");
+
             System.out.println("Thread stopped.");
+            System.out.println("\n*******************************************");
+            System.out.println("\n\tAlive cells:");
+            System.out.println(getAliveCellsCords());
+            startButton.setText("Start");
+            startButton.setEnabled(true);
         }
+    }
+
+    private String getAliveCellsCords() {
+        StringBuilder sb = new StringBuilder();
+        int total = 0;
+        CellPane[][] cells = DrawingPanel.getPanel().getCells();
+        for (int j, i = 0; i < DrawingPanel.SIZE; i++)
+            for (j = 0; j < DrawingPanel.SIZE; j++) {
+                if (cells[i][j].isAlive()) {
+                    ++total;
+                    sb.append(cells[i][j].getCords());
+                    sb.append("\n");
+                }
+            }
+        sb.append("\tTotal: " + total);
+        if (total == 0) isThreadRunning = false;
+        return sb.toString();
     }
 
     public static void main(String[] args) {
@@ -124,8 +153,8 @@ public class MainFrame extends JFrame {
             public void run() {
                 JFrame mainFrame = new MainFrame();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //mainFrame.setLocationRelativeTo(null);
-                mainFrame.setLocationByPlatform(true);
+                mainFrame.setLocationRelativeTo(null);
+                //mainFrame.setLocationByPlatform(true);
                 mainFrame.setResizable(false);
                 mainFrame.pack();
                 mainFrame.setVisible(true);

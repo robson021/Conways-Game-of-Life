@@ -61,18 +61,59 @@ public class CellPane extends JPanel {
     }
 
     public void checkNeighbourhood() {
-        System.out.println("Cell " + this.getId() + " is " + this.alive);
-        for (int y, x = X - 1; x < (X + 2); x++) {
-            for (y = Y - 1; y < (Y + 2); y++) {
-                if (x == X && y == Y) continue; // skip self
-                System.out.println("iteration: " + x + ", " + y + " ");
+        System.out.println("Cell " + this.getCords() + " is " + this.alive);
+        int x, y;
+
+        CellPane[][] otherCells = DrawingPanel.getPanel().getCells();
+        int otherAlive = 0, otherDead = 0;
+
+        x = X - 1;
+        for (int j, i = 0; i < 3; i++) {
+            if (x < 0) x = DrawingPanel.SIZE - 1;
+
+
+            y = Y - 1;
+            for (j = 0; j < 3; j++) {
+                if (y < 0) y = DrawingPanel.SIZE - 1;
+
+                if (x == X && y == Y) {
+                    ++y;
+                    continue;
+                }
+
+                //System.out.println("\tIteration: "+x+", "+y);
+
+                //logic
+
+                try {
+                    if (otherCells[x][y].isAlive()) otherAlive++;
+                    else otherDead++;
+                } catch (Exception e) {
+                }
+
+                //end logic
+
+                y++;
+                if (y > DrawingPanel.SIZE - 1) y = 0;
             }
+            x++;
+            if (x > DrawingPanel.SIZE - 1) x = 0;
         }
-        System.out.println("Finished update of Cell: " + this.getId());
+
+        if (this.alive) {
+            if (otherAlive > 3) DrawingPanel.getPanel().killLife(X, Y);
+            else if (otherAlive < 2) this.killThisCell();
+        } else {
+            if (otherAlive == 3) DrawingPanel.getPanel().killLife(X, Y);
+        }
+
+        System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
+                "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);
     }
 
-    public String getId() {
+    public String getCords() {
         return "x: " + X + ", y: " + Y;
     }
+
 }
 
