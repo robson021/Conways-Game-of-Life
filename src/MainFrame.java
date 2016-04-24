@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
         JButton killButton = new JButton("Kill cell");
         killButton.addActionListener(new KillCellAction());
 
-        JButton clearButton = new JButton("clear");
+        JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(e -> {
             drawingPanel.clearCells();
         });

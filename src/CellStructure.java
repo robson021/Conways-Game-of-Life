@@ -30,7 +30,7 @@ public class CellStructure {
             case GLIDER:
                 break;
             case CONST:
-                System.out.println("Can not move const figure");
+                System.out.println("Can not move const figure.");
                 break;
             case OSCILLATOR:
                 break;
