@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
+    private static final String[] BCS = new String[]{"Periodic", "Non-periodic"};
+    private static boolean BC = true; // periodic
+
     private DrawingPanel drawingPanel;
     private JTextField textFieldX, textFieldY;
     private static JLabel infoLabel;
@@ -12,6 +15,7 @@ public class MainFrame extends JFrame {
     private boolean isThreadRunning = false;
     private JButton startButton;
     private JProgressBar progressBar;
+    private JComboBox bcBox, structureBox;
 
     public MainFrame() {
         super("Game of Life");
@@ -54,15 +58,34 @@ public class MainFrame extends JFrame {
         southPanel.add(new JLabel("y: "));
         southPanel.add(textFieldY);
 
+
+        JPanel westPanel = new JPanel(new BorderLayout());
+        JPanel innerNorthPanel = new JPanel(new FlowLayout());
+        westPanel.add(innerNorthPanel, BorderLayout.NORTH);
+
+
+        bcBox = new JComboBox(BCS);
+        bcBox.addActionListener(e -> {
+            if (bcBox.getSelectedIndex() == 0) BC = true;
+            else BC = false;
+            System.out.println("BC: " + BC);
+        });
+        structureBox = new JComboBox(StructureType.values());
+        innerNorthPanel.add(new JLabel("Structures: "));
+        innerNorthPanel.add(structureBox);
+
         this.add(southPanel, BorderLayout.SOUTH);
-
         infoLabel = new JLabel("Nothing happend yet.");
-
         JPanel northPanel = new JPanel(new FlowLayout());
+        northPanel.setBackground(Color.GRAY);
+        northPanel.add(new JLabel("BCs: "));
+        northPanel.add(bcBox);
+        northPanel.add(new JLabel(" Last action: "));
         northPanel.add(infoLabel);
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(eastPanel, BorderLayout.EAST);
+        this.add(westPanel, BorderLayout.WEST);
     }
 
     private class AddButtonListener implements ActionListener {
@@ -123,7 +146,10 @@ public class MainFrame extends JFrame {
                 for (int j, i = 0; i < DrawingPanel.SIZE; i++) {
                     for (j = 0; j < DrawingPanel.SIZE; j++) {
                         cellPane = cellPanes[i][j];
-                        cellPane.checkNeighbourhood();
+
+                        if (BC) cellPane.checkNeighbourhood();
+                        else cellPane.checkNonPeriodic();
+
                         progressBar.setValue(progressBar.getValue() + 1);
                         try {
                             Thread.sleep(8); // sleep for slower screen update
@@ -150,6 +176,7 @@ public class MainFrame extends JFrame {
             System.out.println("\n\tAlive cells:");
             System.out.println(getAliveCellsCords());
             startButton.setText("Start");
+            infoLabel.setText("End of the game.");
             startButton.setEnabled(true);
         }
     }
@@ -169,6 +196,10 @@ public class MainFrame extends JFrame {
         sb.append("\tTotal: " + total);
         if (total == 0) isThreadRunning = false;
         return sb.toString();
+    }
+
+    public static boolean isBC() {
+        return BC;
     }
 
     public static void main(String[] args) {

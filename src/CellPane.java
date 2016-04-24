@@ -130,5 +130,8 @@ public class CellPane extends JPanel {
         return "x: " + X + ", y: " + Y;
     }
 
+    public void checkNonPeriodic() {
+        // TODO: 25.04.16 periodic BC
+    }
 }
 
