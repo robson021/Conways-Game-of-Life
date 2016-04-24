@@ -26,7 +26,13 @@ public class MainFrame extends JFrame {
         JButton killButton = new JButton("Kill cell");
         killButton.addActionListener(new KillCellAction());
 
+        JButton clearButton = new JButton("clear");
+        clearButton.addActionListener(e -> {
+            drawingPanel.clearCells();
+        });
+
         southPanel.add(startButton);
+        southPanel.add(clearButton);
         southPanel.add(killButton);
         southPanel.add(addButton);
         textFieldX = new JTextField(2);
@@ -153,8 +159,8 @@ public class MainFrame extends JFrame {
             public void run() {
                 JFrame mainFrame = new MainFrame();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainFrame.setLocationRelativeTo(null);
-                //mainFrame.setLocationByPlatform(true);
+                //mainFrame.setLocationRelativeTo(null);
+                mainFrame.setLocationByPlatform(true);
                 mainFrame.setResizable(false);
                 mainFrame.pack();
                 mainFrame.setVisible(true);

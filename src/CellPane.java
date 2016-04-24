@@ -10,6 +10,7 @@ public class CellPane extends JPanel {
     private Color defaultBackground;
     private final int X, Y;
     private boolean alive = false;
+    private boolean belongsToStructure = false;
 
     public CellPane(int x, int y) {
         X = x;
@@ -27,9 +28,7 @@ public class CellPane extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                defaultBackground = Color.GREEN;
                 if (alive) {
-                    defaultBackground = Color.black;
                     DrawingPanel.getPanel().killLife(X, Y);
                 } else DrawingPanel.getPanel().addNewLife(X, Y);
             }
@@ -37,8 +36,15 @@ public class CellPane extends JPanel {
     }
 
     public void killThisCell() {
-        setBackground(Color.black);
+        defaultBackground = Color.BLACK;
+        setBackground(defaultBackground);
         alive = false;
+    }
+
+    public void resurrectThisCell() {
+        defaultBackground = Color.GREEN;
+        setBackground(defaultBackground);
+        alive = true;
     }
 
    /* @Override
@@ -101,10 +107,11 @@ public class CellPane extends JPanel {
         }
 
         if (this.alive) {
-            if (otherAlive > 3) DrawingPanel.getPanel().killLife(X, Y);
-            else if (otherAlive < 2) DrawingPanel.getPanel().killLife(X, Y);
-        } else {
-            if (otherAlive == 3) DrawingPanel.getPanel().addNewLife(X, Y);
+            if (otherAlive < 2 || otherAlive > 3) {
+                DrawingPanel.getPanel().killLife(X, Y);
+            }
+        } else if (otherAlive == 3) {
+            DrawingPanel.getPanel().addNewLife(X, Y);
         }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +

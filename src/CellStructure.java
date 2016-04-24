@@ -8,9 +8,6 @@ public class CellStructure {
     private List<CellPane> cells = new ArrayList<>();
     private StructureType type = null;
 
-    public CellStructure() {
-    }
-
     public CellStructure(List<CellPane> cells, StructureType type) {
         this.cells = cells;
         this.type = type;
@@ -26,5 +23,19 @@ public class CellStructure {
 
     public StructureType getType() {
         return type;
+    }
+
+    public void moveIt() {
+        switch (type) {
+            case GLIDER:
+                break;
+            case CONST:
+                System.out.println("Can not move const figure");
+                break;
+            case OSCILLATOR:
+                break;
+            default:
+                break;
+        }
     }
 }

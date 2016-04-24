@@ -52,13 +52,13 @@ public class DrawingPanel extends JPanel {
     public void clearCells() {
         for (int j, i = 0; i < SIZE; i++)
             for (j = 0; j < SIZE; j++)
-                cells[i][j].killThisCell();
+                this.killLife(i, j);
         repaint();
     }
 
     public boolean addNewLife(int x, int y) {
         if (x < SIZE && y < SIZE) {
-            cells[x][y].setAlive(true);
+            cells[x][y].resurrectThisCell();
             MainFrame.updateInfo("Added new life at: " + x + ", " + y);
             return true;
         }
