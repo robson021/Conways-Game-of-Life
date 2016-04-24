@@ -68,6 +68,10 @@ public class CellPane extends JPanel {
 
     public void checkNeighbourhood() {
         System.out.println("Cell " + this.getCords() + " is " + this.alive);
+        if (this.belongsToStructure) {
+            System.out.println("This cell is part of structure.");
+            return;
+        }
         int x, y;
 
         CellPane[][] otherCells = DrawingPanel.getPanel().getCells();
@@ -80,7 +84,9 @@ public class CellPane extends JPanel {
 
             y = Y - 1;
             for (j = 0; j < 3; j++) {
+
                 if (y < 0) y = DrawingPanel.SIZE - 1;
+                else if (y > DrawingPanel.SIZE - 1) y = 0;
 
                 if (x == X && y == Y) {
                     ++y;
@@ -91,16 +97,17 @@ public class CellPane extends JPanel {
 
                 //logic
 
-                try {
+                try { // fixed
                     if (otherCells[x][y].isAlive()) otherAlive++;
                     else otherDead++;
                 } catch (Exception e) {
+                    System.out.println("EXCEPTION: " + x + ", " + y);
                 }
 
                 //end logic
 
                 y++;
-                if (y > DrawingPanel.SIZE - 1) y = 0;
+
             }
             x++;
             if (x > DrawingPanel.SIZE - 1) x = 0;
