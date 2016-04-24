@@ -100,6 +100,7 @@ public class MainFrame extends JFrame {
             } else {
                 isThreadRunning = false;
                 startButton.setEnabled(false);
+                startButton.setText("Wait...");
             }
             //startButton.repaint();
         }
