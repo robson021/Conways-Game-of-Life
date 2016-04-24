@@ -161,8 +161,6 @@ public class MainFrame extends JFrame {
                     System.out.println(getAliveCellsCords());
                 }
 
-                // TODO: 24.04.16 update cells after cycle
-
                 this.updateCells();
 
                 try {
