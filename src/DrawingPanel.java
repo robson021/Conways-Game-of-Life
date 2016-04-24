@@ -58,7 +58,7 @@ public class DrawingPanel extends JPanel {
 
     public boolean addNewLife(int x, int y) {
         if (x < SIZE && y < SIZE) {
-            cells[x][y].setAlive(true);
+            cells[x][y].resurrectThisCell();
             MainFrame.updateInfo("Added new life at: " + x + ", " + y);
             return true;
         }
@@ -80,6 +80,23 @@ public class DrawingPanel extends JPanel {
             return true;
         }
         return false;
+    }
+
+    public void updateCells() {
+        CellPane cell;
+        for (int j, i = 0; i < SIZE; i++) {
+            for (j = 0; j < SIZE; j++) {
+                cell = cells[i][j];
+                if (cell.isToUpdate()) {
+                    if (cell.isAlive()) {
+                        this.killLife(cell.getX(), cell.getY());
+                    } else {
+                        this.addNewLife(cell.getX(), cell.getY());
+                    }
+                    cell.setToUpdate(false);
+                }
+            }
+        }
     }
 
 }

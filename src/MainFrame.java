@@ -113,6 +113,8 @@ public class MainFrame extends JFrame {
                     System.out.println(getAliveCellsCords());
                 }
 
+                drawingPanel.updateCells();
+
                 try {
                     Thread.sleep(1_000);
                 } catch (InterruptedException e) {
@@ -153,8 +155,8 @@ public class MainFrame extends JFrame {
             public void run() {
                 JFrame mainFrame = new MainFrame();
                 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainFrame.setLocationRelativeTo(null);
-                //mainFrame.setLocationByPlatform(true);
+                //mainFrame.setLocationRelativeTo(null);
+                mainFrame.setLocationByPlatform(true);
                 mainFrame.setResizable(false);
                 mainFrame.pack();
                 mainFrame.setVisible(true);

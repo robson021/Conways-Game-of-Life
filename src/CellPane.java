@@ -10,6 +10,7 @@ public class CellPane extends JPanel {
     private Color defaultBackground;
     private final int X, Y;
     private boolean alive = false;
+    private boolean toUpdate = false;
 
     public CellPane(int x, int y) {
         X = x;
@@ -17,6 +18,7 @@ public class CellPane extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                defaultBackground = getBackground();
                 setBackground(Color.BLUE);
             }
 
@@ -27,18 +29,25 @@ public class CellPane extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                defaultBackground = Color.GREEN;
                 if (alive) {
-                    defaultBackground = Color.black;
                     DrawingPanel.getPanel().killLife(X, Y);
-                } else DrawingPanel.getPanel().addNewLife(X, Y);
+                } else {
+                    DrawingPanel.getPanel().addNewLife(X, Y);
+                }
             }
         });
     }
 
     public void killThisCell() {
-        setBackground(Color.black);
+        defaultBackground = Color.BLACK;
+        setBackground(Color.BLACK);
         alive = false;
+    }
+
+    public void resurrectThisCell() {
+        defaultBackground = Color.GREEN;
+        setBackground(defaultBackground);
+        alive = true;
     }
 
    /* @Override
@@ -101,10 +110,11 @@ public class CellPane extends JPanel {
         }
 
         if (this.alive) {
-            if (otherAlive > 3) DrawingPanel.getPanel().killLife(X, Y);
-            else if (otherAlive < 2) DrawingPanel.getPanel().killLife(X, Y);
-        } else {
-            if (otherAlive == 3) DrawingPanel.getPanel().addNewLife(X, Y);
+            if ((otherAlive > 3) || (otherAlive < 2)) {
+                toUpdate = true;
+            }
+        } else if (otherAlive == 3) {
+            toUpdate = true;
         }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
@@ -115,5 +125,22 @@ public class CellPane extends JPanel {
         return "x: " + X + ", y: " + Y;
     }
 
+    public boolean isToUpdate() {
+        return toUpdate;
+    }
+
+    public void setToUpdate(boolean toUpdate) {
+        this.toUpdate = toUpdate;
+    }
+
+    @Override
+    public int getX() {
+        return X;
+    }
+
+    @Override
+    public int getY() {
+        return Y;
+    }
 }
 
