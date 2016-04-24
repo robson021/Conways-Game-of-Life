@@ -119,6 +119,8 @@ public class MainFrame extends JFrame {
                     System.out.println(getAliveCellsCords());
                 }
 
+                // TODO: 24.04.16 update cells after cycle
+
                 try {
                     Thread.sleep(1_000);
                 } catch (InterruptedException e) {

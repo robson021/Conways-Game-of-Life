@@ -95,7 +95,7 @@ public class CellPane extends JPanel {
 
                 //System.out.println("\tIteration: "+x+", "+y);
 
-                //logic
+                //logic ------------------------------------
 
                 try { // fixed
                     if (otherCells[x][y].isAlive()) otherAlive++;
@@ -104,7 +104,7 @@ public class CellPane extends JPanel {
                     System.out.println("EXCEPTION: " + x + ", " + y);
                 }
 
-                //end logic
+                //end logic ---------------------------------
 
                 y++;
 
