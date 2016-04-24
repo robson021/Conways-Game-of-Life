@@ -11,6 +11,7 @@ public class MainFrame extends JFrame {
     private Thread lifeThread = null;
     private boolean isThreadRunning = false;
     private JButton startButton;
+    private JProgressBar progressBar;
 
     public MainFrame() {
         super("Game of Life");
@@ -31,6 +32,17 @@ public class MainFrame extends JFrame {
             drawingPanel.clearCells();
         });
 
+        progressBar = new JProgressBar(SwingConstants.VERTICAL, 0, (drawingPanel.SIZE * drawingPanel.SIZE));
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+        progressBar.setForeground(Color.GREEN.darker());
+        progressBar.setBackground(Color.MAGENTA.darker().darker());
+
+        JPanel eastPanel = new JPanel(new GridLayout(1, 1));
+        eastPanel.add(progressBar);
+        //eastPanel.add(new JLabel("Progress"));
+
+
         southPanel.add(startButton);
         southPanel.add(clearButton);
         southPanel.add(killButton);
@@ -50,6 +62,7 @@ public class MainFrame extends JFrame {
         northPanel.add(infoLabel);
 
         this.add(northPanel, BorderLayout.NORTH);
+        this.add(eastPanel, BorderLayout.EAST);
     }
 
     private class AddButtonListener implements ActionListener {
@@ -103,14 +116,16 @@ public class MainFrame extends JFrame {
         @Override
         public void run() {
             while (isThreadRunning) {
+                progressBar.setValue(0);
                 CellPane cellPane;
                 CellPane[][] cellPanes = drawingPanel.getCells();
                 for (int j, i = 0; i < DrawingPanel.SIZE; i++) {
                     for (j = 0; j < DrawingPanel.SIZE; j++) {
                         cellPane = cellPanes[i][j];
                         cellPane.checkNeighbourhood();
+                        progressBar.setValue(progressBar.getValue() + 1);
                         try {
-                            Thread.sleep(35); // sleep for slower screen update
+                            Thread.sleep(8); // sleep for slower screen update
                         } catch (InterruptedException e) {
                             System.out.println("Error - thread sleep try.");
                         }
