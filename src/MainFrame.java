@@ -163,6 +163,8 @@ public class MainFrame extends JFrame {
 
                 // TODO: 24.04.16 update cells after cycle
 
+                this.updateCells();
+
                 try {
                     Thread.sleep(1_000);
                 } catch (InterruptedException e) {
@@ -178,6 +180,25 @@ public class MainFrame extends JFrame {
             startButton.setText("Start");
             infoLabel.setText("End of the game.");
             startButton.setEnabled(true);
+        }
+
+        private void updateCells() {
+            CellPane cell;
+            CellPane[][] cells = drawingPanel.getCells();
+            for (int j, i = 0; i < DrawingPanel.SIZE; i++) {
+                for (j = 0; j < DrawingPanel.SIZE; j++) {
+                    cell = cells[i][j];
+                    if (cell.isToUpdate()) {
+                        cell.setToUpdate(false);
+                        if (cell.isAlive()) {
+                            drawingPanel.killLife(cell.getCordX(), cell.getCordY());
+                        } else {
+                            drawingPanel.addNewLife(cell.getCordX(), cell.getCordY());
+                        }
+                    }
+                }
+            }
+            infoLabel.setText("Board updated.");
         }
     }
 

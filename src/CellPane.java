@@ -8,13 +8,14 @@ import java.awt.event.MouseEvent;
  */
 public class CellPane extends JPanel {
     private Color defaultBackground;
-    private final int X, Y;
+    private int cordX, cordY;
     private boolean alive = false;
     private boolean belongsToStructure = false;
+    private boolean toUpdate = false;
 
     public CellPane(int x, int y) {
-        X = x;
-        Y = y;
+        cordX = x;
+        cordY = y;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -30,8 +31,8 @@ public class CellPane extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (alive) {
-                    DrawingPanel.getPanel().killLife(X, Y);
-                } else DrawingPanel.getPanel().addNewLife(X, Y);
+                    DrawingPanel.getPanel().killLife(cordX, cordY);
+                } else DrawingPanel.getPanel().addNewLife(cordX, cordY);
             }
         });
     }
@@ -48,11 +49,37 @@ public class CellPane extends JPanel {
         alive = true;
     }
 
-   /* @Override
-    public void setBackground(Color bg) {
-        defaultBackground = getBackground();
-        super.setBackground(bg);
-    }*/
+    public boolean isBelongsToStructure() {
+        return belongsToStructure;
+    }
+
+    public void setBelongsToStructure(boolean belongsToStructure) {
+        this.belongsToStructure = belongsToStructure;
+    }
+
+    public int getCordX() {
+        return cordX;
+    }
+
+    public void setCordX(int cordX) {
+        this.cordX = cordX;
+    }
+
+    public int getCordY() {
+        return cordY;
+    }
+
+    public void setCordY(int cordY) {
+        this.cordY = cordY;
+    }
+
+    public boolean isToUpdate() {
+        return toUpdate;
+    }
+
+    public void setToUpdate(boolean toUpdate) {
+        this.toUpdate = toUpdate;
+    }
 
     @Override
     public Dimension getPreferredSize() {
@@ -63,9 +90,9 @@ public class CellPane extends JPanel {
         return alive;
     }
 
-    public void setAlive(boolean alive) {
+    /*public void setAlive(boolean alive) {
         this.alive = alive;
-    }
+    }*/
 
     public void checkNeighbourhood() {
         System.out.println("Cell " + this.getCords() + " is " + this.alive);
@@ -78,18 +105,18 @@ public class CellPane extends JPanel {
         CellPane[][] otherCells = DrawingPanel.getPanel().getCells();
         int otherAlive = 0, otherDead = 0;
 
-        x = X - 1;
+        x = cordX - 1;
         for (int j, i = 0; i < 3; i++) {
             if (x < 0) x = DrawingPanel.SIZE - 1;
 
 
-            y = Y - 1;
+            y = cordY - 1;
             for (j = 0; j < 3; j++) {
 
                 if (y < 0) y = DrawingPanel.SIZE - 1;
                 else if (y > DrawingPanel.SIZE - 1) y = 0;
 
-                if (x == X && y == Y) {
+                if (x == cordX && y == cordY) {
                     ++y;
                     continue;
                 }
@@ -116,10 +143,12 @@ public class CellPane extends JPanel {
 
         if (this.alive) {
             if (otherAlive < 2 || otherAlive > 3) {
-                DrawingPanel.getPanel().killLife(X, Y);
+                //DrawingPanel.getPanel().killLife(cordX, cordY);
+                toUpdate = true;
             }
         } else if (otherAlive == 3) {
-            DrawingPanel.getPanel().addNewLife(X, Y);
+            //DrawingPanel.getPanel().addNewLife(cordX, cordY);
+            toUpdate = true;
         }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
@@ -127,11 +156,12 @@ public class CellPane extends JPanel {
     }
 
     public String getCords() {
-        return "x: " + X + ", y: " + Y;
+        return "x: " + cordX + ", y: " + cordY;
     }
 
     public void checkNonPeriodic() {
         // TODO: 25.04.16 periodic BC
+
     }
 }
 
