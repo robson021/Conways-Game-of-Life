@@ -1,22 +1,28 @@
 package robert.gui;
 
+import robert.model.AbstractStructure;
+import robert.model.StaticStructure;
+import robert.model.StructureType;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by student on 2016-04-21.
  */
 public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
-    public static final int SIZE = 15;
+    public static final int SIZE = 20;
 
     public CellPane[][] getCells() {
         return cells;
     }
 
     private CellPane[][] cells = new CellPane[SIZE][SIZE];
+    private java.util.List<AbstractStructure> structures = new ArrayList<>();
 
     public DrawingPanel() {
         setLayout(new GridBagLayout());
@@ -67,8 +73,37 @@ public class DrawingPanel extends JPanel {
         return false;
     }
 
-    public void addStructure(int index, int cordX, int cordY) {
-        System.out.println("Attempting to add new structure at: " + cordX + ", " + cordY);
+    public void addStructure(int index, int x, int y) {
+        System.out.print("Attempting to add new structure at: " + x + ", " + y);
+        java.util.List<CellPane> cells = new ArrayList<>();
+        AbstractStructure structure;
+        switch (index) {
+            case 1:
+                System.out.println(". Type: Glider");
+                break;
+            case 2:
+                System.out.println(". Type: Static");
+                // construct
+                for (int i = 0; i < StaticStructure.SIZE; i++) {
+                    if (this.addNewLife(x, y)) {
+                        cells.add(this.cells[x][y]);
+                    }
+                    x += 2;
+                    y += 2;
+                }
+
+
+                // add to list
+                structure = new StaticStructure(cells, StructureType.STATIC);
+                this.structures.add(structure);
+                break;
+            case 3:
+                System.out.println(". Type: Oscillator");
+                break;
+            default:
+                System.out.println("Bad index!");
+                break;
+        }
     }
 
     public static DrawingPanel getPanel() {
@@ -81,6 +116,7 @@ public class DrawingPanel extends JPanel {
 
     public boolean killLife(int x, int y) {
         if (x < SIZE && y < SIZE && cells[x][y].isAlive()) {
+            if (this.cells[x][y].isBelongsToStructure()) return false;
             this.cells[x][y].killThisCell();
             MainFrame.updateInfo("Killed life at: " + x + ", " + y);
             return true;

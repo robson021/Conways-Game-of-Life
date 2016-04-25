@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class StaticStructure extends AbstractStructure {
 
+    public static final int SIZE = 3;
     public StaticStructure(List<CellPane> cells, StructureType type) {
         super(cells, type);
     }

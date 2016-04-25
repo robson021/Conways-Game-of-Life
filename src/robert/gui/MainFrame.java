@@ -3,6 +3,7 @@ package robert.gui;
 import robert.model.StructureType;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame {
         this.add(drawingPanel, BorderLayout.CENTER);
 
         JPanel southPanel = new JPanel(new FlowLayout());
+        southPanel.setBackground(Color.GRAY);
         startButton = new JButton("Start");
         startButton.addActionListener(new StartButtonListener());
         JButton addButton = new JButton("Add new life");
@@ -92,8 +94,10 @@ public class MainFrame extends JFrame {
         northPanel.add(new JLabel(" Last action: "));
         northPanel.add(infoLabel);
 
-        textArea = new JTextArea("Event log\n", 15, 5);
+        textArea = new JTextArea("Event log\n", DrawingPanel.SIZE, 5);
         textArea.setEditable(false);
+        DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         westPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
         this.add(northPanel, BorderLayout.NORTH);
@@ -172,7 +176,7 @@ public class MainFrame extends JFrame {
 
                         progressBar.setValue(progressBar.getValue() + 1);
                         try {
-                            Thread.sleep(3); // sleep for slower screen update
+                            Thread.sleep(1); // sleep for slower screen update
                         } catch (InterruptedException e) {
                             System.out.println("Error - thread sleep try.");
                         }
