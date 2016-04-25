@@ -16,7 +16,7 @@ public class CellPane extends JPanel {
     private Color defaultBackground;
     private int cordX, cordY;
     private boolean alive = false;
-    private boolean belongsToStructure = false;
+    private boolean partOfStructure = false;
     private boolean toUpdate = false;
 
     public CellPane(int x, int y) {
@@ -58,12 +58,12 @@ public class CellPane extends JPanel {
         alive = true;
     }
 
-    public boolean isBelongsToStructure() {
-        return belongsToStructure;
+    public boolean isPartOfStructure() {
+        return partOfStructure;
     }
 
-    public void setBelongsToStructure(boolean belongsToStructure) {
-        this.belongsToStructure = belongsToStructure;
+    public void setPartOfStructure(boolean partOfStructure) {
+        this.partOfStructure = partOfStructure;
     }
 
     public int getCordX() {
@@ -105,7 +105,7 @@ public class CellPane extends JPanel {
 
     public void checkNeighbourhood() {
         System.out.println("Cell " + this.getCords() + " is " + this.alive);
-        if (this.belongsToStructure) {
+        if (this.partOfStructure) {
             System.out.println("This cell is part of structure.");
             return;
         }
@@ -171,7 +171,7 @@ public class CellPane extends JPanel {
 
     public void checkNonPeriodic() {
         System.out.println("Cell " + this.getCords() + " is " + this.alive);
-        if (this.belongsToStructure) {
+        if (this.partOfStructure) {
             System.out.println("This cell is part of structure.");
             return;
         }

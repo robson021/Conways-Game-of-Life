@@ -19,7 +19,7 @@ public abstract class AbstractStructure {
         this.cells = cells;
         this.type = type;
         for (CellPane c : cells) {
-            c.setBelongsToStructure(true);
+            c.setPartOfStructure(true);
         }
     }
 

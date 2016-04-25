@@ -116,7 +116,7 @@ public class DrawingPanel extends JPanel {
 
     public boolean killLife(int x, int y) {
         if (x < SIZE && y < SIZE && cells[x][y].isAlive()) {
-            if (this.cells[x][y].isBelongsToStructure()) return false;
+            if (this.cells[x][y].isPartOfStructure()) return false;
             this.cells[x][y].killThisCell();
             MainFrame.updateInfo("Killed life at: " + x + ", " + y);
             return true;
@@ -124,4 +124,7 @@ public class DrawingPanel extends JPanel {
         return false;
     }
 
+    public java.util.List<AbstractStructure> getStructures() {
+        return structures;
+    }
 }

@@ -1,5 +1,6 @@
 package robert.gui;
 
+import robert.model.AbstractStructure;
 import robert.model.StructureType;
 
 import javax.swing.*;
@@ -185,6 +186,9 @@ public class MainFrame extends JFrame {
                     System.out.println(getAliveCellsCords());
                 }
 
+                for (AbstractStructure s : drawingPanel.getStructures()) {
+                    s.move();
+                }
                 this.updateCells(++counter);
 
                 try {
