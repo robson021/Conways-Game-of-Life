@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by robert on 23.04.16.
  */
 public class CellPane extends JPanel {
+    private static final List<CellPane> toUpdateList = new ArrayList<>();
     private Color defaultBackground;
     private int cordX, cordY;
     private boolean alive = false;
@@ -145,10 +148,12 @@ public class CellPane extends JPanel {
             if (otherAlive < 2 || otherAlive > 3) {
                 //DrawingPanel.getPanel().killLife(cordX, cordY);
                 toUpdate = true;
+                toUpdateList.add(this);
             }
         } else if (otherAlive == 3) {
             //DrawingPanel.getPanel().addNewLife(cordX, cordY);
             toUpdate = true;
+            toUpdateList.add(this);
         }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
@@ -162,6 +167,11 @@ public class CellPane extends JPanel {
     public void checkNonPeriodic() {
         // TODO: 25.04.16 periodic BC
 
+
+    }
+
+    public static List<CellPane> getToUpdateList() {
+        return toUpdateList;
     }
 }
 

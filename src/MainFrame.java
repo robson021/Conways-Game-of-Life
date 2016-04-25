@@ -152,7 +152,7 @@ public class MainFrame extends JFrame {
 
                         progressBar.setValue(progressBar.getValue() + 1);
                         try {
-                            Thread.sleep(8); // sleep for slower screen update
+                            Thread.sleep(3); // sleep for slower screen update
                         } catch (InterruptedException e) {
                             System.out.println("Error - thread sleep try.");
                         }
@@ -181,21 +181,16 @@ public class MainFrame extends JFrame {
         }
 
         private void updateCells() {
-            CellPane cell;
-            CellPane[][] cells = drawingPanel.getCells();
-            for (int j, i = 0; i < DrawingPanel.SIZE; i++) {
-                for (j = 0; j < DrawingPanel.SIZE; j++) {
-                    cell = cells[i][j];
-                    if (cell.isToUpdate()) {
-                        cell.setToUpdate(false);
-                        if (cell.isAlive()) {
-                            drawingPanel.killLife(cell.getCordX(), cell.getCordY());
-                        } else {
-                            drawingPanel.addNewLife(cell.getCordX(), cell.getCordY());
-                        }
-                    }
+
+            for (CellPane cell : CellPane.getToUpdateList()) {
+                cell.setToUpdate(false);
+                if (cell.isAlive()) {
+                    drawingPanel.killLife(cell.getCordX(), cell.getCordY());
+                } else {
+                    drawingPanel.addNewLife(cell.getCordX(), cell.getCordY());
                 }
             }
+            CellPane.getToUpdateList().clear();
             infoLabel.setText("Board updated.");
         }
     }
