@@ -36,7 +36,10 @@ public class CellPane extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (alive) {
+                int index = MainFrame.getSelectedStructureIndex();
+                if (!alive && index != 0) {
+                    DrawingPanel.getPanel().addStructure(index, cordX, cordY);
+                } else if (alive) {
                     DrawingPanel.getPanel().killLife(cordX, cordY);
                 } else DrawingPanel.getPanel().addNewLife(cordX, cordY);
             }

@@ -67,6 +67,10 @@ public class DrawingPanel extends JPanel {
         return false;
     }
 
+    public void addStructure(int index, int cordX, int cordY) {
+        System.out.println("Attempting to add new structure at: " + cordX + ", " + cordY);
+    }
+
     public static DrawingPanel getPanel() {
         return self;
     }

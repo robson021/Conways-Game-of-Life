@@ -11,6 +11,7 @@ public class MainFrame extends JFrame {
 
     private static final String[] BCS = new String[]{"Periodic", "Non-periodic"};
     private static boolean BC = true; // periodic
+    private static int selectedStructureIndex = 0;
 
     private DrawingPanel drawingPanel;
     private JTextField textFieldX, textFieldY;
@@ -76,6 +77,9 @@ public class MainFrame extends JFrame {
             System.out.println("BC: " + BC);
         });
         structureBox = new JComboBox(StructureType.values());
+        structureBox.addActionListener(e -> {
+            this.selectedStructureIndex = structureBox.getSelectedIndex();
+        });
         innerNorthPanel.add(new JLabel("Structures: "));
         innerNorthPanel.add(structureBox);
 
@@ -140,6 +144,10 @@ public class MainFrame extends JFrame {
 
     public static void updateInfo(String text) {
         infoLabel.setText(text);
+    }
+
+    public static int getSelectedStructureIndex() {
+        return selectedStructureIndex;
     }
 
     private class LifeRunnable implements Runnable {
