@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class CellPane extends JPanel {
     private static final List<CellPane> toUpdateList = new ArrayList<>();
+    private static final CellPane[][] otherCells = DrawingPanel.getPanel().getCells();
     private Color defaultBackground;
     private int cordX, cordY;
     private boolean alive = false;
@@ -107,7 +108,6 @@ public class CellPane extends JPanel {
         }
         int x, y;
 
-        CellPane[][] otherCells = DrawingPanel.getPanel().getCells();
         int otherAlive = 0, otherDead = 0;
 
         x = cordX - 1;
@@ -167,7 +167,6 @@ public class CellPane extends JPanel {
     }
 
     public void checkNonPeriodic() {
-        // TODO: 25.04.16 periodic BC
         System.out.println("Cell " + this.getCords() + " is " + this.alive);
         if (this.belongsToStructure) {
             System.out.println("This cell is part of structure.");
@@ -175,12 +174,10 @@ public class CellPane extends JPanel {
         }
         int otherAlive = 0;
         int otherDead = 0;
+        int x, y;
 
-        for (int j, i = 0; i < 3; i++) {
-            for (j = 0; j < 3; j++) {
+        // TODO: 25.04.16 periodic BC
 
-            }
-        }
 
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
                 "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);

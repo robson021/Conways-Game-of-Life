@@ -8,13 +8,13 @@ import java.util.Random;
 /**
  * Created by robert on 23.04.16.
  */
-public abstract class CellStructure {
-    private static final int[] DIRECTIONS = new int[]{-1, 1};
-    private static final Random random = new Random(DIRECTIONS.length);
-    private List<CellPane> cells; //= new ArrayList<>();
-    private StructureType type = null;
+public abstract class AbstractStructure {
+    protected static final int[] DIRECTIONS = new int[]{-1, 1};
+    protected static final Random random = new Random(DIRECTIONS.length);
+    protected List<CellPane> cells; //= new ArrayList<>();
+    protected StructureType type = null;
 
-    public CellStructure(List<CellPane> cells, StructureType type) {
+    public AbstractStructure(List<CellPane> cells, StructureType type) {
         this.cells = cells;
         this.type = type;
         for (CellPane c : cells) {

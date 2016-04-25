@@ -20,6 +20,7 @@ public class MainFrame extends JFrame {
     private JButton startButton;
     private JProgressBar progressBar;
     private JComboBox bcBox, structureBox;
+    private JTextArea textArea;
 
     public MainFrame() {
         super("Game of Life");
@@ -87,6 +88,10 @@ public class MainFrame extends JFrame {
         northPanel.add(new JLabel(" Last action: "));
         northPanel.add(infoLabel);
 
+        textArea = new JTextArea("Event log\n", 15, 5);
+        textArea.setEditable(false);
+
+        westPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
         this.add(northPanel, BorderLayout.NORTH);
         this.add(eastPanel, BorderLayout.EAST);
         this.add(westPanel, BorderLayout.WEST);
@@ -141,8 +146,11 @@ public class MainFrame extends JFrame {
         public LifeRunnable() {
             isThreadRunning = true;
         }
+
+        long counter = 0;
         @Override
         public void run() {
+            textArea.setText("");
             while (isThreadRunning) {
                 progressBar.setValue(0);
                 CellPane cellPane;
@@ -165,7 +173,7 @@ public class MainFrame extends JFrame {
                     System.out.println(getAliveCellsCords());
                 }
 
-                this.updateCells();
+                this.updateCells(++counter);
 
                 try {
                     Thread.sleep(1_000);
@@ -184,7 +192,7 @@ public class MainFrame extends JFrame {
             startButton.setEnabled(true);
         }
 
-        private void updateCells() {
+        private void updateCells(long counter) {
 
             for (CellPane cell : CellPane.getToUpdateList()) {
                 cell.setToUpdate(false);
@@ -196,6 +204,7 @@ public class MainFrame extends JFrame {
             }
             CellPane.getToUpdateList().clear();
             infoLabel.setText("Board updated.");
+            textArea.append("* Cycle #" + counter + "\n");
         }
     }
 
@@ -212,7 +221,10 @@ public class MainFrame extends JFrame {
                 }
             }
         sb.append("\tTotal: " + total);
-        if (total == 0) isThreadRunning = false;
+        if (total == 0) {
+            isThreadRunning = false;
+            //textArea.append("All cells are dead. Game stopped.");
+        }
         return sb.toString();
     }
 
