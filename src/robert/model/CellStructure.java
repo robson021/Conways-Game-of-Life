@@ -1,14 +1,17 @@
-import java.util.ArrayList;
+package robert.model;
+
+import robert.gui.CellPane;
+
 import java.util.List;
 import java.util.Random;
 
 /**
  * Created by robert on 23.04.16.
  */
-public class CellStructure {
+public abstract class CellStructure {
     private static final int[] DIRECTIONS = new int[]{-1, 1};
     private static final Random random = new Random(DIRECTIONS.length);
-    private List<CellPane> cells = new ArrayList<>();
+    private List<CellPane> cells; //= new ArrayList<>();
     private StructureType type = null;
 
     public CellStructure(List<CellPane> cells, StructureType type) {
@@ -31,12 +34,12 @@ public class CellStructure {
         return type;
     }
 
-    public void moveIt() {
+    /*public void moveIt() {
         switch (type) {
             case GLIDER:
                 int direction = DIRECTIONS[random.nextInt()];
                 int upOrDown = DIRECTIONS[random.nextInt()];
-                for (CellPane c : cells) {
+                for (robert.gui.CellPane c : cells) {
                     if (upOrDown == 1) {
                         c.setCordX(c.getCordX() + direction);
                     } else {
@@ -44,7 +47,7 @@ public class CellStructure {
                     }
                 }
                 break;
-            case CONST:
+            case STATIC:
                 System.out.println("Can not move const figure.");
                 break;
             case OSCILLATOR:
@@ -52,5 +55,7 @@ public class CellStructure {
             default:
                 break;
         }
-    }
+    }*/
+
+    public abstract void move();
 }

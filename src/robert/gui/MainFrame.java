@@ -1,3 +1,7 @@
+package robert.gui;
+
+import robert.model.StructureType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

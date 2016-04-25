@@ -1,3 +1,5 @@
+package robert.gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -146,12 +148,12 @@ public class CellPane extends JPanel {
 
         if (this.alive) {
             if (otherAlive < 2 || otherAlive > 3) {
-                //DrawingPanel.getPanel().killLife(cordX, cordY);
+                //robert.gui.DrawingPanel.getPanel().killLife(cordX, cordY);
                 toUpdate = true;
                 toUpdateList.add(this);
             }
         } else if (otherAlive == 3) {
-            //DrawingPanel.getPanel().addNewLife(cordX, cordY);
+            //robert.gui.DrawingPanel.getPanel().addNewLife(cordX, cordY);
             toUpdate = true;
             toUpdateList.add(this);
         }
@@ -166,8 +168,22 @@ public class CellPane extends JPanel {
 
     public void checkNonPeriodic() {
         // TODO: 25.04.16 periodic BC
+        System.out.println("Cell " + this.getCords() + " is " + this.alive);
+        if (this.belongsToStructure) {
+            System.out.println("This cell is part of structure.");
+            return;
+        }
+        int otherAlive = 0;
+        int otherDead = 0;
 
+        for (int j, i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
 
+            }
+        }
+
+        System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
+                "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);
     }
 
     public static List<CellPane> getToUpdateList() {
