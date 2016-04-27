@@ -15,7 +15,7 @@ public abstract class AbstractStructure {
     protected List<CellPane> cells; //= new ArrayList<>();
     protected StructureType type = null;
 
-    public AbstractStructure(List<CellPane> cells, StructureType type) {
+    protected AbstractStructure(List<CellPane> cells, StructureType type) {
         this.cells = cells;
         this.type = type;
         for (CellPane c : cells) {

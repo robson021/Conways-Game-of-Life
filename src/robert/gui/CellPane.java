@@ -177,7 +177,6 @@ public class CellPane extends JPanel {
             }
         }
 
-
         checkIfNeedsUpdate(otherAlive, otherDead);
     }
 
