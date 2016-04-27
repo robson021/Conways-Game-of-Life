@@ -149,20 +149,7 @@ public class CellPane extends JPanel {
             if (x > DrawingPanel.SIZE - 1) x = 0;
         }
 
-        if (this.alive) {
-            if (otherAlive < 2 || otherAlive > 3) {
-                //robert.gui.DrawingPanel.getPanel().killLife(cordX, cordY);
-                toUpdate = true;
-                toUpdateList.add(this);
-            }
-        } else if (otherAlive == 3) {
-            //robert.gui.DrawingPanel.getPanel().addNewLife(cordX, cordY);
-            toUpdate = true;
-            toUpdateList.add(this);
-        }
-
-        System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
-                "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);
+        checkIfNeedsUpdate(otherAlive, otherDead);
     }
 
     public String getCords() {
@@ -177,13 +164,38 @@ public class CellPane extends JPanel {
         }
         int otherAlive = 0;
         int otherDead = 0;
-        int x, y;
 
-        // TODO: 25.04.16 periodic BC
+        for (int j, i = cordX - 1; i < (cordX + 2); i++) {
+            for (j = cordY - 1; j < (cordY + 2); j++) {
+                try {
+                    if (i == cordX && j == cordY) continue;
+                    if (otherCells[i][j].isAlive()) otherAlive++;
+                    else otherDead++;
+                } catch (Exception e) {
+                    System.out.println("Exception. X, Y: " + i + ", " + j);
+                }
+            }
+        }
 
 
+        checkIfNeedsUpdate(otherAlive, otherDead);
+    }
+
+    private void checkIfNeedsUpdate(int otherAlive, int otherDead) {
         System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
                 "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);
+
+        if (this.alive) {
+            if (otherAlive < 2 || otherAlive > 3) {
+                //robert.gui.DrawingPanel.getPanel().killLife(cordX, cordY);
+                toUpdate = true;
+                toUpdateList.add(this);
+            }
+        } else if (otherAlive == 3) {
+            //robert.gui.DrawingPanel.getPanel().addNewLife(cordX, cordY);
+            toUpdate = true;
+            toUpdateList.add(this);
+        }
     }
 
     public static List<CellPane> getToUpdateList() {
