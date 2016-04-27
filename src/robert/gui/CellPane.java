@@ -205,5 +205,17 @@ public class CellPane extends JPanel {
     public static List<CellPane> getToUpdateList() {
         return toUpdateList;
     }
+
+    public void moveTo(int x2, int y2) {
+        if (!this.partOfStructure) return;
+        if (x2 >= 0 && y2 >= 0 && x2 < DrawingPanel.SIZE && y2 < DrawingPanel.SIZE) {
+            //this.setPartOfStructure(false);
+            this.killThisCell();
+            otherCells[x2][y2].changeColor(Color.RED);
+            otherCells[x2][y2].setPartOfStructure(true);
+            //this.cordX = x2;
+            //this.cordY = y2;
+        }
+    }
 }
 

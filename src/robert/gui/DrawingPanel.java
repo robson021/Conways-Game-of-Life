@@ -1,8 +1,8 @@
 package robert.gui;
 
 import robert.model.AbstractStructure;
+import robert.model.Glider;
 import robert.model.StaticStructure;
-import robert.model.StructureType;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -80,7 +80,29 @@ public class DrawingPanel extends JPanel {
         switch (index) {
             case 1:
                 System.out.println(". Type: Glider");
+                for (int i = 0; i < Glider.SIZE; i++) {
+                    if (this.addNewLife(x, y + i)) {
+                        cells.add(this.cells[x][y + i]);
+                    }
+                }
+                int k = Glider.SIZE / 2;
+                y += k;
+                for (int tmp, i = 0; i < k; i++) {
+                    tmp = x + i + 1;
+                    if (this.addNewLife(tmp, y)) {
+                        cells.add(this.cells[tmp][y]);
+                    }
+                    tmp = x - i - 1;
+                    if (this.addNewLife(tmp, y)) {
+                        cells.add(this.cells[tmp][y]);
+                    }
+                }
+                structure = new Glider(cells);
+                this.structures.add(structure);
+                System.out.println(cells.size());
                 break;
+
+
             case 2:
                 System.out.println(". Type: Static");
                 // construct
@@ -99,11 +121,14 @@ public class DrawingPanel extends JPanel {
                     x++;
                 }
                 // add to list
-                structure = new StaticStructure(cells, StructureType.STATIC);
+                structure = new StaticStructure(cells);
                 this.structures.add(structure);
                 break;
             case 3:
                 System.out.println(". Type: Oscillator");
+                // TODO: 27.04.16 oscillator
+                break;
+            case 9:
                 break;
             default:
                 System.out.println("Bad index!");
@@ -132,4 +157,6 @@ public class DrawingPanel extends JPanel {
     public java.util.List<AbstractStructure> getStructures() {
         return structures;
     }
+
 }
+

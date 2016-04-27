@@ -10,18 +10,20 @@ import java.util.List;
  */
 public class StaticStructure extends AbstractStructure {
 
-    private static final Color[] colors = new Color[]{Color.YELLOW, Color.ORANGE,
-            Color.CYAN, Color.PINK.darker(), Color.WHITE, Color.MAGENTA};
+    /*private static final Color[] colors = new Color[]{Color.YELLOW, Color.ORANGE,
+            Color.CYAN, Color.PINK.darker(), Color.WHITE, Color.MAGENTA};*/
     public static final int SIZE = 3;
-    public StaticStructure(List<CellPane> cells, StructureType type) {
-        super(cells, type);
+
+    public StaticStructure(List<CellPane> cells) {
+        super(cells, StructureType.STATIC);
     }
 
     @Override
     public void move() {
         //System.out.println("Static structure can not move.");
         for (CellPane c : this.cells) {
-            c.changeColor(colors[random.nextInt(colors.length)]);
+            //c.changeColor(colors[random.nextInt(colors.length)]);
+            c.changeColor(Color.MAGENTA.darker().darker());
         }
     }
 }

@@ -165,6 +165,9 @@ public class MainFrame extends JFrame {
         public void run() {
             textArea.setText("");
             while (isThreadRunning) {
+                for (AbstractStructure s : drawingPanel.getStructures()) {
+                    s.move();
+                }
                 progressBar.setValue(0);
                 CellPane cellPane;
                 CellPane[][] cellPanes = drawingPanel.getCells();
@@ -186,9 +189,7 @@ public class MainFrame extends JFrame {
                     //System.out.println(getAliveCellsCords());
                 }
 
-                for (AbstractStructure s : drawingPanel.getStructures()) {
-                    s.move();
-                }
+
                 this.updateCells(++counter);
 
                 try {
