@@ -35,28 +35,5 @@ public abstract class AbstractStructure {
         return type;
     }
 
-    /*public void moveIt() {
-        switch (type) {
-            case GLIDER:
-                int direction = DIRECTIONS[random.nextInt()];
-                int upOrDown = DIRECTIONS[random.nextInt()];
-                for (robert.gui.CellPane c : cells) {
-                    if (upOrDown == 1) {
-                        c.setCordX(c.getCordX() + direction);
-                    } else {
-                        c.setCordY(c.getCordY() + direction);
-                    }
-                }
-                break;
-            case STATIC:
-                System.out.println("Can not move const figure.");
-                break;
-            case OSCILLATOR:
-                break;
-            default:
-                break;
-        }
-    }*/
-
     public abstract void move();
 }

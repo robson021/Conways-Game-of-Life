@@ -236,7 +236,7 @@ public class MainFrame extends JFrame {
                     sb.append("\n");
                 }
             }
-        sb.append("\tTotal: " + total);
+        sb.append("\tTotal: " + total + " of " + (DrawingPanel.SIZE * DrawingPanel.SIZE));
         if (total == 0) {
             isThreadRunning = false;
             //textArea.append("All cells are dead. Game stopped.");

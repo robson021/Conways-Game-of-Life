@@ -88,9 +88,17 @@ public class DrawingPanel extends JPanel {
                     if (this.addNewLife(x, y)) {
                         cells.add(this.cells[x][y]);
                     }
-                    x += 2;
-                    y += 2;
+                    x++;
+                    y++;
                 }
+                for (int i = 0; i < StaticStructure.SIZE - 1; i++) {
+                    y--;
+                    if (this.addNewLife(x, y)) {
+                        cells.add(this.cells[x][y]);
+                    }
+                    x++;
+                }
+
 
 
                 // add to list
