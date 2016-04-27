@@ -98,9 +98,6 @@ public class DrawingPanel extends JPanel {
                     }
                     x++;
                 }
-
-
-
                 // add to list
                 structure = new StaticStructure(cells, StructureType.STATIC);
                 this.structures.add(structure);

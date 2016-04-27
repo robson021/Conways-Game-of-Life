@@ -103,10 +103,15 @@ public class CellPane extends JPanel {
         this.alive = alive;
     }*/
 
+    public void changeColor(Color c) {
+        defaultBackground = c;
+        setBackground(defaultBackground);
+    }
+
     public void checkNeighbourhood() {
-        System.out.println("Cell " + this.getCords() + " is " + this.alive);
+        //System.out.println("Cell " + this.getCords() + " is " + this.alive);
         if (this.partOfStructure) {
-            System.out.println("This cell is part of structure.");
+            //System.out.println("This cell is part of structure.");
             return;
         }
         int x, y;
@@ -137,7 +142,7 @@ public class CellPane extends JPanel {
                     if (otherCells[x][y].isAlive()) otherAlive++;
                     else otherDead++;
                 } catch (Exception e) {
-                    System.out.println("EXCEPTION: " + x + ", " + y);
+                    //System.out.println("EXCEPTION: " + x + ", " + y);
                 }
 
                 //end logic ---------------------------------
@@ -157,7 +162,7 @@ public class CellPane extends JPanel {
     }
 
     public void checkNonPeriodic() {
-        System.out.println("Cell " + this.getCords() + " is " + this.alive);
+        //System.out.println("Cell " + this.getCords() + " is " + this.alive);
         if (this.partOfStructure) {
             System.out.println("This cell is part of structure.");
             return;
@@ -172,7 +177,7 @@ public class CellPane extends JPanel {
                     if (otherCells[i][j].isAlive()) otherAlive++;
                     else otherDead++;
                 } catch (Exception e) {
-                    System.out.println("Exception. X, Y: " + i + ", " + j);
+                    //System.out.println("Exception. X, Y: " + i + ", " + j);
                 }
             }
         }
@@ -181,8 +186,8 @@ public class CellPane extends JPanel {
     }
 
     private void checkIfNeedsUpdate(int otherAlive, int otherDead) {
-        System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
-                "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);
+        /*System.out.println("Finished update of Cell: " + this.getCords() + ".\n" +
+                "Alive/Dead neighbours: " + otherAlive + " / " + otherDead);*/
 
         if (this.alive) {
             if (otherAlive < 2 || otherAlive > 3) {

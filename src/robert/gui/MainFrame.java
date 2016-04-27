@@ -182,8 +182,8 @@ public class MainFrame extends JFrame {
                             System.out.println("Error - thread sleep try.");
                         }
                     }
-                    System.out.println("\tAlive cells:");
-                    System.out.println(getAliveCellsCords());
+                    //System.out.println("\tAlive cells:");
+                    //System.out.println(getAliveCellsCords());
                 }
 
                 for (AbstractStructure s : drawingPanel.getStructures()) {
