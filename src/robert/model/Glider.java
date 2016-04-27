@@ -20,7 +20,7 @@ public class Glider extends AbstractStructure {
         int my = random.nextInt(this.DIRECTIONS.length);
         int distance = random.nextInt(3) + 2;
         int x2, y2;
-        for (CellPane c : this.cells) {
+        for (CellPane c : this.myCells) {
             x2 = c.getCordX() + mx * distance;
             y2 = c.getCordY() + my * distance;
             c.moveTo(x2, y2);

@@ -2,6 +2,7 @@ package robert.gui;
 
 import robert.model.AbstractStructure;
 import robert.model.Glider;
+import robert.model.Oscillator;
 import robert.model.StaticStructure;
 
 import javax.swing.*;
@@ -127,6 +128,25 @@ public class DrawingPanel extends JPanel {
             case 3:
                 System.out.println(". Type: Oscillator");
                 // TODO: 27.04.16 oscillator
+                for (int y2, i = 0; i < Oscillator.SIZE; i++) {
+                    y2 = y + i;
+                    if (this.addNewLife(x, y2)) {
+                        cells.add(this.cells[x][y2]);
+                    }
+
+                }
+                k = Oscillator.SIZE / 2;
+                try {
+                    this.cells[x - 1][y + k].setPartOfStructure(true);
+                } catch (Exception e) {
+                }
+                try {
+                    this.cells[x + 1][y + k].setPartOfStructure(true);
+                } catch (Exception e) {
+                }
+                structure = new Oscillator(cells);
+                this.structures.add(structure);
+
                 break;
             case 9:
                 break;

@@ -21,7 +21,7 @@ public class StaticStructure extends AbstractStructure {
     @Override
     public void move() {
         //System.out.println("Static structure can not move.");
-        for (CellPane c : this.cells) {
+        for (CellPane c : this.myCells) {
             //c.changeColor(colors[random.nextInt(colors.length)]);
             c.changeColor(Color.MAGENTA.darker().darker());
         }

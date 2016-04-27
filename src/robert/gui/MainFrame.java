@@ -185,7 +185,7 @@ public class MainFrame extends JFrame {
                             System.out.println("Error - thread sleep try.");
                         }
                     }
-                    //System.out.println("\tAlive cells:");
+                    //System.out.println("\tAlive myCells:");
                     //System.out.println(getAliveCellsCords());
                 }
 
@@ -202,7 +202,7 @@ public class MainFrame extends JFrame {
 
             System.out.println("Thread stopped.");
             System.out.println("\n*******************************************");
-            System.out.println("\n\tAlive cells:");
+            System.out.println("\n\tAlive myCells:");
             System.out.println(getAliveCellsCords());
             startButton.setText("Start");
             infoLabel.setText("End of the game.");
@@ -240,7 +240,7 @@ public class MainFrame extends JFrame {
         sb.append("\tTotal: " + total + " of " + (DrawingPanel.SIZE * DrawingPanel.SIZE));
         if (total == 0) {
             isThreadRunning = false;
-            //textArea.append("All cells are dead. Game stopped.");
+            //textArea.append("All myCells are dead. Game stopped.");
         }
         return sb.toString();
     }

@@ -13,23 +13,23 @@ public abstract class AbstractStructure {
     protected static final DrawingPanel drawingPanel = DrawingPanel.getPanel();
     protected static final int[] DIRECTIONS = new int[]{-1, 1};
     protected static final Random random = new Random(DIRECTIONS.length);
-    protected List<CellPane> cells; //= new ArrayList<>();
+    protected List<CellPane> myCells; //= new ArrayList<>();
     protected StructureType type = null;
 
     protected AbstractStructure(List<CellPane> cells, StructureType type) {
-        this.cells = cells;
+        this.myCells = cells;
         this.type = type;
         for (CellPane c : cells) {
             c.setPartOfStructure(true);
         }
     }
 
-    public List<CellPane> getCells() {
-        return cells;
+    public List<CellPane> getMyCells() {
+        return myCells;
     }
 
-    public void setCells(List<CellPane> cells) {
-        this.cells = cells;
+    public void setMyCells(List<CellPane> myCells) {
+        this.myCells = myCells;
     }
 
     public StructureType getType() {
