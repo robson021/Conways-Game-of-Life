@@ -22,6 +22,7 @@ public class CellPane extends JPanel {
     public CellPane(int x, int y) {
         cordX = x;
         cordY = y;
+        setBackground(Color.LIGHT_GRAY);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -47,7 +48,7 @@ public class CellPane extends JPanel {
     }
 
     public void killThisCell() {
-        defaultBackground = Color.BLACK;
+        defaultBackground = Color.LIGHT_GRAY;
         setBackground(defaultBackground);
         alive = false;
     }
